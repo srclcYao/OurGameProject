@@ -11,18 +11,19 @@ volatile int game_has_init = 0;
 volatile Current_Screen current_screen = mainscreen;
 //初始光标在游戏开始
 volatile MainScreen_Cursor current_cursor = START;
+//初始失败界面光标在返回
+volatile Game_Fail_Cursor current_fail_cursor = back;
 
 void game_init(void) {
 	Lcd_DrawFilledRectangle(0,0,240,280,COLOR_WHITE);
-	//分割线
-	Lcd_DrawLine(0,19,240,19,COLOR_BLACK);
-    score_init();
+  score_init();
 	draw_score_flame();
+	Lcd_DrawLine(0,19,240,19,COLOR_BLACK);//分割线
 	score_draw();
-    snake_init();
+  snake_init();
 	snake_draw();
-    food_init();
-    game_over_flag = 0;
+  food_init();
+  game_over_flag = 0;
 	game_has_init = 1;
 }
 

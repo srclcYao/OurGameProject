@@ -13,6 +13,10 @@ extern const unsigned char gImage_main0[133928];
 extern const unsigned char gImage_start[133920];
 //"模式选择“
 extern const unsigned char gImage_mode[133920];
+//失败界面（选择重开
+extern const unsigned char gImage_fail_restart[102720];
+//失败界面（选择返回
+extern const unsigned char gImage_fail_back[102720];
 
 //20x20
 //食物1

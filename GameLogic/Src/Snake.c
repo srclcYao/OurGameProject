@@ -23,26 +23,42 @@ void snake_init(void) {
     snake.body[0].y = WIDTH / 2;
     snake.body[1].x = LENGTH / 2 - 1; // 蛇身
     snake.body[1].y = WIDTH / 2;
+	  //last_tail = snake.body[1]; // 尾巴坐标
 }
 
 // 移动蛇
 void snake_move(void) {
-	struct BODY head = snake.body[0];
-    struct BODY last_tail = snake.body[snake.size - 1]; // 保存尾巴坐标
+	struct BODY last_tail = snake.body[snake.size - 1];
 
     // 身体后移
     for (int i = snake.size - 1; i > 0; i--) {
-        snake.body[i] = snake.body[i - 1];
+			snake.body[i] = snake.body[i - 1];
     }
 
     // 更新蛇头
     switch (snake.dir) {
-        case UP:    snake.body[0].y--; break;
-        case DOWN:  snake.body[0].y++; break;
-        case LEFT:  snake.body[0].x--; break;
-        case RIGHT: snake.body[0].x++; break;
+        case UP:{
+				  if(snake.body[0].y == 0) snake.body[0].y = 12;
+					else snake.body[0].y--; 
+					break;
+				}
+        case DOWN:{
+				  if(snake.body[0].y == 12) snake.body[0].y = 0; 
+					else snake.body[0].y++; 
+					break;
+				}
+        case LEFT:{
+				  if(snake.body[0].x == 0) snake.body[0].x = 11; 
+					else snake.body[0].x--; 
+					break;
+				}
+        case RIGHT:{
+				  if(snake.body[0].x == 11) snake.body[0].x = 0; 
+					else snake.body[0].x++; 
+					break;
+				}
     }
-
+		
     // 检查碰撞食物
     if (snake.body[0].x == food.x && snake.body[0].y == food.y) {
         snake_grow();       // 身体变长
@@ -55,9 +71,10 @@ void snake_move(void) {
 	
 	// 撞自己
     for (int i = 1; i < snake.size; i++) {
-        if (head.x == snake.body[i].x && head.y == snake.body[i].y) {
+        if (snake.body[0].x == snake.body[i].x && snake.body[0].y == snake.body[i].y) {
             // 游戏结束
-			game_over_flag = 1;
+			      game_over_flag = 1;
+					
             // ?接下来怎么处理
         }
     }
@@ -66,7 +83,8 @@ void snake_move(void) {
 // 蛇身体变长
 void snake_grow(void) {
     if (snake.size < LENGTH * WIDTH) {
-        snake.size++;
+			snake.body[snake.size] = snake.body[snake.size - 1];
+      snake.size++;
     }
 }
 
@@ -86,15 +104,14 @@ void snake_draw(void) {
         int x = map_x(snake.body[i].x);
         int y = map_y(snake.body[i].y);
 
-        if (i == 0) {
-            // 蛇头
-            darw_snake_head(x, y, snake.dir);
-        } else if (i % 2) {
-            draw_snake_body(x, y,1);
-        } else {
-            draw_snake_body(x, y,0);
-        }
-    }
+				if (i == 0) {// 蛇头
+              darw_snake_head(x, y, snake.dir);
+          } else if (i % 2) {
+              draw_snake_body(x, y,1);
+          } else {
+              draw_snake_body(x, y,0);
+          }
+		 }
 }
 
 
@@ -123,12 +140,12 @@ void darw_snake_head(int x, int y, Direction direction){
 //蛇身的一节
 void draw_snake_body(int x, int y, int type){
 	if(type){
-    Lcd_DrawFilledRectangle(x,y,20,20,COLOR_BODY_R2);  //深
-	Lcd_DrawRectangle(x,y,20,20,COLOR_BODY_R1);
+    Lcd_DrawFilledRectangle(x,y,19,19,COLOR_BODY_R2);  //深
+	  Lcd_DrawRectangle(x,y,19,19,COLOR_BODY_R1);
 	}
 	else{
-    Lcd_DrawFilledRectangle(x,y,20,20,COLOR_BODY_R3);  //浅
-	Lcd_DrawRectangle(x,y,20,20,COLOR_BODY_R1);
+    Lcd_DrawFilledRectangle(x,y,19,19,COLOR_BODY_R3);  //浅
+	  Lcd_DrawRectangle(x,y,19,19,COLOR_BODY_R1);
 	}
 }
 

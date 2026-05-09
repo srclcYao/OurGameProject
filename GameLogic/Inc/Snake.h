@@ -28,7 +28,6 @@ struct SNAKE {
 
 // 全局蛇
 extern struct SNAKE snake;
-
 // 坐标映射函数
 int map_x(int x);
 int map_y(int y);

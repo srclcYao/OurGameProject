@@ -1,13 +1,5 @@
 #include "Timer.h"
-
-//Ö÷ÒªÓÃ×÷¶¨Ê±Æ÷ÖĞ¶Ï
-
-//TIMER5
-#define  BSP_TIMER_RCU    RCU_TIMER5        // ¶¨Ê±Æ÷Ê±ÖÓ
-#define  BSP_TIMER        TIMER5            // ¶¨Ê±Æ÷
-#define  BSP_TIMER_IRQ    TIMER5_DAC_IRQn   // ¶¨Ê±Æ÷ÖĞ¶Ï
-
-#define BSP_TIMER_IRQHandler TIMER5_DAC_IRQHandler // ¶¨Ê±Æ÷ÖĞ¶Ï·şÎñº¯Êı;
+#include "Motor.h"
 
 //¶¨Ê±Ê±¼ä = pre / 200 * per us
 //pre£¨Ô¤·ÖÆµÖµ£©  per£¨ÖÜÆÚÖµ£©/£¨×Ô¶¯ÖØ×°ÔØÖµ£©
@@ -43,13 +35,21 @@ void basic_timer_config(uint16_t pre,uint16_t per){
     timer_enable(BSP_TIMER);
 }
 
-void BSP_TIMER_IRQHandler(void){
-    /* ÕâÀïÊÇ¶¨Ê±Æ÷ÖĞ¶Ï */
+void BSP_TIMER_IRQHandler(void)
+{
     if(timer_interrupt_flag_get(BSP_TIMER,TIMER_INT_FLAG_UP) == SET)
     {
-        timer_interrupt_flag_clear(BSP_TIMER,TIMER_INT_FLAG_UP); // Çå³ıÖĞ¶Ï±êÖ¾Î»
-        /* Ö´ĞĞ²Ù×÷ */
-        printf("BSP_TIMER_IRQHandler\r\n");
-        gpio_bit_toggle(GPIOD,GPIO_PIN_7); // ·­×ªled
+        timer_interrupt_flag_clear(BSP_TIMER,TIMER_INT_FLAG_UP);
+
+        if(motor_timer > 0)
+        {
+            motor_timer--;  // æ¯æ¬¡ä¸­æ–­ 1ms æˆ–ä½ è®¾ç½®çš„æ—¶é—´
+            if(motor_timer == 0)
+            {
+                // å…³é—­ PWM
+                timer_channel_output_pulse_value_config(TIMER1, TIMER_CH_2, 0);
+                timer_disable(BSP_TIMER);  // åœæ­¢å®šæ—¶å™¨ï¼ŒèŠ‚çœ CPU
+            }
+        }
     }
 }

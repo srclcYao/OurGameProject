@@ -43,18 +43,27 @@ OF SUCH DAMAGE.
 */
 int main(void)
 {
-    systick_config();
+  systick_config();
 	key_init();
 	LEDenable();
 	Lcd_Init();
 	
-	SetLED1(true);
+	Adc_Init();
 	
-	//pwm_config(200,10000);  // 不知道是什么总之暂时用不上
+	// 初始化 PWM 和定时器
+    PwmMotor_Init();
+    basic_timer_config(200, 1000);  // TIMER5 1ms中断
+	//振动测试
+	//PwmMotor_SetValue(0.5, (uint8_t)500);
+	
+	//SetLED1(true);
+	
+	//pwm_config(200,10000);  // 不知道是什么总之暂时用不上,应该是呼吸灯用的？
 	//printf("test1114514\n");
 	
 
     while(1) {
+		JoystickDir joystick_dir = Joystick_ReadDir();
 		//当前界面
 		switch(current_screen){
 			//：主菜单
@@ -72,44 +81,109 @@ int main(void)
 					}
 					case CONFIG:{
 						//暂时没有设置功能
-					    //Lcd_DrawImage(0,0,240,280,gImage_start);
+					    Lcd_DrawImage(0,0,240,280,gImage_main0);
 						break;
 					}
 				}
 				Lcd_ShowFrame();
-				if(A_pressed){
+				if(A_pressed || (joystick_dir==JOY_UP)){//上
 					if(current_cursor==0) current_cursor=2;
 					else current_cursor--;
 					A_pressed = false;
 				}
-				if(B_pressed){
+				if(B_pressed || (joystick_dir==JOY_DOWN)){//下
 					if(current_cursor==2) current_cursor=0;
 					else current_cursor++;
 					B_pressed = false;
 				}
-				if(R_pressed){
+				if(R_pressed || (joystick_dir==JOY_RIGHT)){//确认
 					if(current_cursor==START) current_screen = game_interface;
 					//其他两个界面没做
 					R_pressed = false;
 				}
-				if(L_pressed){
-				    L_pressed = false;
+				if(L_pressed || (joystick_dir==JOY_LEFT)){//返回（这里没用
+					L_pressed = false;
 				}
 				break;
 			}
 			case game_interface:{
 				//游戏初始化
 				if(!game_has_init){
-		            Lcd_NewFrame();
-		            game_init();
-		            Lcd_ShowFrame();
-		        }
+					Lcd_NewFrame();
+		      game_init();
+		      Lcd_ShowFrame();
+					while(!game_over_flag){
+						JoystickDir joystick_dir = Joystick_ReadDir();
+						if(A_pressed || (joystick_dir==JOY_UP)){//上
+					    snake.dir = UP;
+					    A_pressed = false;
+						}
+				    if(B_pressed || (joystick_dir==JOY_DOWN)){//上
+					    snake.dir = DOWN;
+					    B_pressed = false;
+						}
+				    if(R_pressed || (joystick_dir==JOY_RIGHT)){
+					    snake.dir = RIGHT;
+					    R_pressed = false;
+						}
+				    if(L_pressed || (joystick_dir==JOY_LEFT)){
+					    snake.dir = LEFT;
+					    L_pressed = false;
+						}
+						snake_erase();
+						snake_move();
+						snake_draw();
+						Lcd_ShowFrame();
+						delay_1ms(250);
+					}
+					if(game_over_flag){
+						//delay_1ms(2000);
+						current_screen = game_fail;
+						game_over_flag = 0;
+						game_has_init = 0;
+					}
+		    }
+			}
+			case game_fail:{
+				char str[16];
+				sprintf(str, "%d", score);
+				Lcd_DrawLine(0,19,240,19,COLOR_WHITE);//擦除分割线
+				Lcd_DrawFilledRectangle(100, 0, 58, 20, COLOR_WHITE);//擦除上方分数栏
+				
+				switch(current_fail_cursor){
+					case(back):{
+						Lcd_DrawImage(0,25,240,210,gImage_fail_back);
+				    Lcd_ShowString(118,100,str,COLOR_BLACK,16);
+						break;
+					}
+					case(restart):{
+						Lcd_DrawImage(0,25,240,210,gImage_fail_restart);
+				    Lcd_ShowString(118,100,str,COLOR_BLACK,16);
+						break;
+					}
+				}
+				Lcd_ShowFrame();
+				
+				JoystickDir joystick_dir = Joystick_ReadDir();
+				if(A_pressed || (joystick_dir==JOY_UP)){//上
+					if(current_fail_cursor==0) current_fail_cursor=1;
+					else current_fail_cursor--;
+					A_pressed = false;
+				}
+				if(B_pressed || (joystick_dir==JOY_DOWN)){//下
+					if(current_fail_cursor==1) current_fail_cursor=0;
+					else current_fail_cursor++;
+					B_pressed = false;
+				}
+				if(R_pressed || (joystick_dir==JOY_RIGHT)){//确认
+					if(current_fail_cursor==0) current_screen = mainscreen;
+					else current_screen = game_interface;
+					R_pressed = false;
+				}
 				break;
 			}
 		}
-		
-		
-    }
+  }
 }
 
 #ifdef GD_ECLIPSE_GCC
