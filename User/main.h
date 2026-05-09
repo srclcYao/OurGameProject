@@ -74,7 +74,8 @@ typedef unsigned int  u32;
 #include "Timer.h"
 //PWM
 #include "PWM.h"
-
+//振动
+#include "Motor.h"
 //SPI
 #include "SPI.h"
 

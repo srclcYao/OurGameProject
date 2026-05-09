@@ -14,15 +14,14 @@ volatile MainScreen_Cursor current_cursor = START;
 
 void game_init(void) {
 	Lcd_DrawFilledRectangle(0,0,240,280,COLOR_WHITE);
-	//分割线
-	Lcd_DrawLine(0,19,240,19,COLOR_BLACK);
-    score_init();
+  score_init();
 	draw_score_flame();
+	Lcd_DrawLine(0,19,240,19,COLOR_BLACK);//分割线
 	score_draw();
-    snake_init();
+  snake_init();
 	snake_draw();
-    food_init();
-    game_over_flag = 0;
+  food_init();
+  game_over_flag = 0;
 	game_has_init = 1;
 }
 

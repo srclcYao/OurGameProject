@@ -1,0 +1,179 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.35.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 11 1, 1, LIC=JL28G-V0I9D-562Q2-91CXM-UWXZL-5U2CN
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.35.0.2
+Toolchain Path:  D:\diankong\keil\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.16
+Assembler:       Armasm.exe V6.16
+Linker/Locator:  ArmLink.exe V6.16
+Library Manager: ArmAr.exe V6.16
+Hex Converter:   FromElf.exe V6.16
+CPU DLL:         SARMCM3.DLL V5.35.0.2
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      CMSIS_AGDI.dll V1.33.0.0
+Dialog DLL:      TCM.DLL V1.53.0.0
+ 
+<h2>Project:</h2>
+D:\homework\hanjiaproject\ThisGame\Project\Game1145.uvprojx
+Project File Date:  03/20/2026
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.16', folder: 'D:\diankong\keil\ARM\ARMCLANG\Bin'
+Build target 'Target_1'
+../User/main.c(35): warning: In file included from...
+../User/main.h(52): warning: In file included from...
+../Firmware/CMSIS/GD/GD32F4xx/Include\gd32f4xx.h(286): warning: In file included from...
+../Firmware/CMSIS\core_cm4.h(187): warning: In file included from...
+../Firmware/CMSIS\core_cmInstr.h(402): warning: implicit conversion changes signedness: 'uint32_t' (aka 'unsigned int') to 'int32_t' (aka 'int') [-Wsign-conversion]
+  return(result);
+  ~~~~~~ ^~~~~~
+../User/main.c(35): warning: In file included from...
+../User/main.h(52): warning: In file included from...
+../Firmware/CMSIS/GD/GD32F4xx/Include\gd32f4xx.h(286): warning: In file included from...
+../Firmware/CMSIS\core_cm4.h(189): warning: In file included from...
+../Firmware/CMSIS\core_cm4_simd.h(665): warning: implicit conversion changes signedness: 'int32_t' (aka 'int') to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
+ return(result);
+ ~~~~~~ ^~~~~~
+../User/main.c(35): warning: In file included from...
+../User/main.h(52): warning: In file included from...
+../Firmware/CMSIS/GD/GD32F4xx/Include\gd32f4xx.h(286): warning: In file included from...
+../Firmware/CMSIS\core_cm4.h(1657): warning: function 'NVIC_SystemReset' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+../User/main.c(35): warning: In file included from...
+../User/main.h(59): warning: In file included from...
+../Hardware/Inc\LED.h(8): warning: this function declaration is not a prototype [-Wstrict-prototypes]
+void LEDenable();
+              ^
+               void
+../Hardware/Inc\LED.h(14): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(35): warning: In file included from...
+../User/main.h(61): warning: In file included from...
+../Hardware/Inc\Amplifier.h(4): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(35): warning: In file included from...
+../User/main.h(65): warning: In file included from...
+../Hardware/Inc\Key.h(16): warning: this function declaration is not a prototype [-Wstrict-prototypes]
+void key_init();
+             ^
+              void
+../Hardware/Inc\Key.h(17): warning: this function declaration is not a prototype [-Wstrict-prototypes]
+void scan_KEYL();
+              ^
+               void
+../Hardware/Inc\Key.h(19): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(35): warning: In file included from...
+../User\main.h(67): warning: In file included from...
+../Hardware/Inc\Screen.h(55): warning: this function declaration is not a prototype [-Wstrict-prototypes]
+void Lcd_Init();
+             ^
+              void
+../Hardware/Inc\Screen.h(57): warning: this function declaration is not a prototype [-Wstrict-prototypes]
+u16 Lcd_GetW();
+            ^
+             void
+../Hardware/Inc\Screen.h(58): warning: this function declaration is not a prototype [-Wstrict-prototypes]
+u16 Lcd_GetH();
+            ^
+             void
+../Hardware/Inc\Screen.h(63): warning: this function declaration is not a prototype [-Wstrict-prototypes]
+u8 Lcd_Read();
+           ^
+            void
+../Hardware/Inc\Screen.h(74): warning: this function declaration is not a prototype [-Wstrict-prototypes]
+void Lcd_PushEnd();
+                ^
+                 void
+../User/main.c(35): warning: In file included from...
+../User\main.h(69): warning: In file included from...
+../Hardware/Inc\Joystick.h(51): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(35): warning: In file included from...
+../User\main.h(74): warning: In file included from...
+../Hardware/Inc\Timer.h(21): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(35): warning: In file included from...
+../User\main.h(76): warning: In file included from...
+../Hardware/Inc\PWM.h(11): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(35): warning: In file included from...
+../User\main.h(78): warning: In file included from...
+../Hardware/Inc\Motor.h(11): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(35): warning: In file included from...
+../User\main.h(83): warning: In file included from...
+../GameLogic/Inc\Snake.h(54): warning: this function declaration is not a prototype [-Wstrict-prototypes]
+void draw_score_flame();
+                     ^
+                      void
+../GameLogic/Inc\Snake.h(56): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(35): warning: In file included from...
+../User\main.h(84): warning: In file included from...
+../GameLogic/Inc\Food.h(18): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(35): warning: In file included from...
+../User\main.h(85): warning: In file included from...
+../GameLogic/Inc\Score.h(10): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(35): warning: In file included from...
+../User\main.h(86): warning: In file included from...
+../GameLogic/Inc\game.h(28): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(36): warning: In file included from...
+../UI/Inc\Image.h(38): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../User/main.c(116): warning: declaration shadows a local variable [-Wshadow]
+                                                JoystickDir joystick_dir = Joystick_ReadDir();
+                                                            ^
+../User/main.c(66): note: previous declaration is here
+                JoystickDir joystick_dir = Joystick_ReadDir();
+                            ^
+../User/main.c(35): warning: In file included from...
+../User\main.h(83): warning: In file included from...
+../GameLogic/Inc\Snake.h(23): warning: padding size of 'struct SNAKE' with 3 bytes to alignment boundary [-Wpadded]
+struct SNAKE {
+       ^
+26 warnings generated.
+compiling main.c...
+linking...
+Program Size: Code=21348 RO-data=425224 RW-data=8 ZI-data=136744  
+FromELF: creating hex file...
+".\Objects\Game1145.axf" - 0 Error(s), 26 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: GigaDevice
+                http://gd32mcu.com/data/documents/pack/GigaDevice.GD32F4xx_DFP.2.1.0.pack
+                GigaDevice.GD32F4xx_DFP.2.1.0
+                GigaDevice GD32F4xx Series Device Support and Examples
+
+<h2>Collection of Component include folders:</h2>
+  C:\Users\1\AppData\Local\Arm\Packs\GigaDevice\GD32F4xx_DFP\2.1.0\Device\F4XX\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>
